@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohamed Kassim M — Full-Stack Developer & AI Enthusiast</title>
+  <meta name="description"
+    content="Mohamed Kassim M — Computer Science Engineering student and full-stack developer who has shipped real-world systems including an ERP platform, live cargo tracking, and an award-winning AI chatbot." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--              CUSTOM CURSOR                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--             LOADING SCREEN                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="loading-screen" role="status" aria-label="Loading">
+    <canvas id="loading-particles"></canvas>
+    <div class="loader-content">
+      <div class="loader-logo">
+        <span class="logo-char" data-char="M">M</span><span class="logo-char" data-char="K">K</span>
+      </div>
+      <div class="loader-name">
+        <span class="loader-name-text">MOHAMED KASSIM M</span>
+      </div>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar">
+          <div class="loader-fill" id="loader-fill"></div>
+        </div>
+      </div>
+      <div class="loader-percent" id="loader-percent">0<span>%</span></div>
+      <div class="loader-status" id="loader-status">Initializing...</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--               MAIN SITE                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="main-site" class="hidden">
+
+    <!-- PARTICLE BACKGROUND -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- ── NAVBAR ── -->
+    <nav id="navbar" aria-label="Primary navigation">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo magnetic" id="nav-logo-link">MK<span class="teal">.</span></a>
+        <ul class="nav-links" role="list">
+          <li><a href="#about" class="nav-link magnetic" id="nav-about">About</a></li>
+          <li><a href="#skills" class="nav-link magnetic" id="nav-skills">Skills</a></li>
+          <li><a href="#projects" class="nav-link magnetic" id="nav-projects">Projects</a></li>
+          <li><a href="#contact" class="nav-link magnetic" id="nav-contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta magnetic" id="nav-cta-btn">Hire Me</a>
+        <button class="nav-burger" id="nav-burger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav-mobile" id="nav-mobile">
+        <a href="#about" class="nav-mobile-link">About</a>
+        <a href="#skills" class="nav-mobile-link">Skills</a>
+        <a href="#projects" class="nav-mobile-link">Projects</a>
+        <a href="#contact" class="nav-mobile-link">Contact</a>
+      </div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section id="hero" aria-label="Hero section">
+      <div class="hero-inner">
+        <div class="hero-badge reveal-up">
+          <span class="badge-dot"></span>
+          Available for Internship &amp; Collaboration
+        </div>
+        <h1 class="hero-title" id="hero-title" aria-label="Mohamed Kassim M">
+          <!-- JS will populate letter spans -->
+        </h1>
+        <p class="hero-sub reveal-up" style="--delay:0.8s">
+          Full-Stack Developer &amp; AI Enthusiast
+        </p>
+        <p class="hero-desc reveal-up" style="--delay:1s">
+          CSE student at MIET Engineering College shipping real-world systems —<br />
+          from live cargo platforms to award-winning AI chatbots.
+        </p>
+        <div class="hero-ctas reveal-up" style="--delay:1.2s">
+          <a href="#projects" class="btn-primary magnetic" id="hero-work-btn">
+            <span>View My Work</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="#contact" class="btn-ghost magnetic" id="hero-contact-btn">Get In Touch</a>
+        </div>
+        <div class="hero-scroll-indicator">
+          <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+          </div>
+          <span>Scroll</span>
+        </div>
+      </div>
+      <div class="hero-glows" aria-hidden="true">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+      </div>
+    </section>
+
+    <!-- ── STATS ── -->
+    <section id="stats" aria-label="Key statistics">
+      <div class="stats-inner">
+        <div class="stat-card glass reveal-up magnetic" id="stat-1" style="--delay:0s">
+          <div class="stat-number"><span class="counter" data-target="8.5" data-decimals="1">0</span><span
+              class="stat-unit">/10</span></div>
+          <div class="stat-label">CGPA</div>
+          <div class="stat-sub">MIET Engineering College</div>
+        </div>
+        <div class="stat-card glass reveal-up magnetic" id="stat-2" style="--delay:0.15s">
+          <div class="stat-number"><span class="counter" data-target="3" data-decimals="0">0</span><span
+              class="stat-unit">+</span></div>
+          <div class="stat-label">Projects Shipped</div>
+          <div class="stat-sub">Real-world deployed systems</div>
+        </div>
+        <div class="stat-card glass reveal-up magnetic" id="stat-3" style="--delay:0.3s">
+          <div class="stat-number"><span class="counter" data-target="2027" data-decimals="0">2023</span></div>
+          <div class="stat-label">Graduation Year</div>
+          <div class="stat-sub">B.E. Computer Science</div>
+        </div>
+        <div class="stat-card glass reveal-up magnetic" id="stat-4" style="--delay:0.45s">
+          <div class="stat-number"><span class="counter" data-target="1" data-decimals="0">0</span><span
+              class="stat-unit">st</span></div>
+          <div class="stat-label">Hackathon Prize</div>
+          <div class="stat-sub">AI Chatbot Competition</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ABOUT ── -->
+    <section id="about" aria-label="About me">
+      <div class="section-inner">
+        <div class="section-label reveal-up">// about me</div>
+        <h2 class="section-title reveal-up">I Build Things That<br /><span class="teal">Actually Ship.</span></h2>
+        <div class="about-grid">
+          <div class="about-text reveal-up" style="--delay:0.2s">
+            <p>I'm Mohamed Kassim M — a Computer Science Engineering student at MIET Engineering College, Trichy with a
+              relentless drive to build software that solves real problems. My work spans full-stack web systems,
+              database architecture, and AI/ML applications.</p>
+            <p>I don't just write code — I architect systems. From a centralized ERP platform used by an entire college
+              institution, to a live cargo management platform deployed for a Singapore-based company, to an AI chatbot
+              that took <strong class="teal">First Prize</strong> in a national hackathon using RAG architecture.</p>
+            <p>Currently seeking a Software Development Internship where I can contribute, grow, and push boundaries.
+            </p>
+            <div class="about-tags">
+              <span class="tag">Problem Solver</span>
+              <span class="tag">Team Collaborator</span>
+              <span class="tag">Quick Learner</span>
+              <span class="tag">Leader</span>
+            </div>
+          </div>
+          <div class="about-card glass reveal-up" style="--delay:0.4s">
+            <div class="about-card-header">
+              <div class="about-avatar">MK</div>
+              <div>
+                <div class="about-name">Mohamed Kassim M</div>
+                <div class="about-role teal">Full-Stack Developer</div>
+              </div>
+            </div>
+            <div class="about-details">
+              <div class="about-detail-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span>Pudukkottai, Tamil Nadu</span>
+              </div>
+              <div class="about-detail-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.63a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z" />
+                </svg>
+                <span>+91 8610065701</span>
+              </div>
+              <div class="about-detail-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
+                </svg>
+                <span>haafizkassim786@gmail.com</span>
+              </div>
+              <div class="about-detail-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                </svg>
+                <span>CGPA: 8.5 / 10</span>
+              </div>
+            </div>
+            <div class="about-links">
+              <a href="https://www.linkedin.com/in/mohamed-kassim-m-570780340" target="_blank" rel="noopener"
+                class="about-link magnetic" id="about-linkedin">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+                LinkedIn
+              </a>
+              <a href="https://github.com/Mohamedkassim786" target="_blank" rel="noopener" class="about-link magnetic"
+                id="about-github">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                </svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKILLS MARQUEE ── -->
+    <section id="skills" aria-label="Skills">
+      <div class="section-inner">
+        <div class="section-label reveal-up">// technical skills</div>
+        <h2 class="section-title reveal-up">The Stack I<br /><span class="teal">Wield Daily.</span></h2>
+      </div>
+      <div class="marquee-outer" aria-label="Skills list">
+        <div class="marquee-track">
+          <div class="marquee-inner" id="marquee-inner-1">
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#61dafb"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" opacity=".3" />
+                <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61dafb" />
+              </svg> React.js</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#68a063"
+                stroke-width="2">
+                <polygon points="12 2 22 20 2 20" />
+              </svg> Node.js</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#336791"
+                stroke-width="2">
+                <ellipse cx="12" cy="6" rx="8" ry="3" />
+                <path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" />
+                <path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
+              </svg> PostgreSQL</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#4db33d"
+                stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg> MongoDB</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#3776ab"
+                stroke-width="2">
+                <path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9" />
+                <polyline points="9 3 9 9 15 9 15 3" />
+                <line x1="12" y1="12" x2="12" y2="21" />
+                <line x1="8" y1="16" x2="16" y2="16" />
+              </svg> Python</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#f7df1e"
+                stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="2" />
+                <path d="M8 17V9M8 13h4M16 9v5a3 3 0 0 1-3 3" />
+              </svg> JavaScript</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#e44d26"
+                stroke-width="2">
+                <path d="M4 2l1.6 18L12 22l6.4-2L20 2H4z" />
+                <path d="M16.5 7H8l.2 2.5H16l-.7 7-3.3.9-3.3-.9-.2-2.5H10l.1 1.5 1.9.5 1.9-.5.2-2H7.5" />
+              </svg> HTML5</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#264de4"
+                stroke-width="2">
+                <path d="M4 2l1.6 18L12 22l6.4-2L20 2H4z" />
+                <path d="M17 7H8.5l.3 2.5h7.9l-1 8-3.7 1-3.7-1-.3-2.5H10l.2 1.5 2 .5 1.9-.5.3-2.5H7.5" />
+              </svg> CSS3</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M4 6h16M4 10h16M4 14h10M4 18h6" />
+              </svg> SQL</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#a78bfa"
+                stroke-width="2">
+                <circle cx="12" cy="8" r="3" />
+                <path d="M6 20v-2a6 6 0 0 1 12 0v2" />
+                <path d="M19 10l2 2-2 2M5 10l-2 2 2 2" />
+              </svg> RAG / AI</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#f05032"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M15.5 8.5L19 5M8.5 8.5L5 5M8.5 15.5L5 19M15.5 15.5L19 19" />
+              </svg> Git</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="#c9d1d9">
+                <path
+                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+              </svg> GitHub</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#007acc"
+                stroke-width="2">
+                <rect x="2" y="3" width="20" height="18" rx="2" />
+                <path d="M8 10l-3 3 3 3M13 10l3 3-3 3M11 7l-2 10" />
+              </svg> VS Code</span>
+          </div>
+          <div class="marquee-inner" aria-hidden="true">
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#61dafb"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <ellipse cx="12" cy="12" rx="10" ry="4" stroke="#61dafb" />
+              </svg> React.js</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#68a063"
+                stroke-width="2">
+                <polygon points="12 2 22 20 2 20" />
+              </svg> Node.js</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#336791"
+                stroke-width="2">
+                <ellipse cx="12" cy="6" rx="8" ry="3" />
+                <path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" />
+                <path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
+              </svg> PostgreSQL</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#4db33d"
+                stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg> MongoDB</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#3776ab"
+                stroke-width="2">
+                <path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9" />
+                <polyline points="9 3 9 9 15 9 15 3" />
+                <line x1="12" y1="12" x2="12" y2="21" />
+                <line x1="8" y1="16" x2="16" y2="16" />
+              </svg> Python</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#f7df1e"
+                stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="2" />
+                <path d="M8 17V9M16 9v5a3 3 0 0 1-3 3" />
+              </svg> JavaScript</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#e44d26"
+                stroke-width="2">
+                <path d="M4 2l1.6 18L12 22l6.4-2L20 2H4z" />
+              </svg> HTML5</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#264de4"
+                stroke-width="2">
+                <path d="M4 2l1.6 18L12 22l6.4-2L20 2H4z" />
+              </svg> CSS3</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M4 6h16M4 10h16M4 14h10M4 18h6" />
+              </svg> SQL</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#a78bfa"
+                stroke-width="2">
+                <circle cx="12" cy="8" r="3" />
+                <path d="M6 20v-2a6 6 0 0 1 12 0v2" />
+                <path d="M19 10l2 2-2 2M5 10l-2 2 2 2" />
+              </svg> RAG / AI</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#f05032"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M15.5 8.5L19 5M8.5 8.5L5 5M8.5 15.5L5 19M15.5 15.5L19 19" />
+              </svg> Git</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="#c9d1d9">
+                <path
+                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+              </svg> GitHub</span>
+            <span class="skill-chip"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#007acc"
+                stroke-width="2">
+                <rect x="2" y="3" width="20" height="18" rx="2" />
+                <path d="M8 10l-3 3 3 3M13 10l3 3-3 3M11 7l-2 10" />
+              </svg> VS Code</span>
+          </div>
+        </div>
+        <!-- Reverse row -->
+        <div class="marquee-track marquee-reverse">
+          <div class="marquee-inner">
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <rect x="2" y="3" width="20" height="18" rx="2" />
+                <path d="M8 7h8M8 11h5M8 15h3" />
+              </svg> ERP Systems</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                <line x1="6" y1="1" x2="6" y2="4" />
+                <line x1="10" y1="1" x2="10" y2="4" />
+                <line x1="14" y1="1" x2="14" y2="4" />
+              </svg> Cargo Management</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                <path d="M8 10h8M8 14h5" />
+              </svg> AI Chatbots</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg> Retrieval-Augmented Generation</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg> Full-Stack Architecture</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+              </svg> Database Design</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg> REST APIs</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M3 9h18M9 21V9" />
+              </svg> Dashboard UIs</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg> Real-Time Systems</span>
+          </div>
+          <div class="marquee-inner" aria-hidden="true">
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <rect x="2" y="3" width="20" height="18" rx="2" />
+                <path d="M8 7h8M8 11h5M8 15h3" />
+              </svg> ERP Systems</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                <line x1="6" y1="1" x2="6" y2="4" />
+                <line x1="10" y1="1" x2="10" y2="4" />
+                <line x1="14" y1="1" x2="14" y2="4" />
+              </svg> Cargo Management</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                <path d="M8 10h8M8 14h5" />
+              </svg> AI Chatbots</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg> Retrieval-Augmented Generation</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg> Full-Stack Architecture</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+              </svg> Database Design</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg> REST APIs</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M3 9h18M9 21V9" />
+              </svg> Dashboard UIs</span>
+            <span class="skill-chip accent"><svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#00f3ff"
+                stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg> Real-Time Systems</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ── -->
+    <section id="projects" aria-label="Projects">
+      <div class="section-inner">
+        <div class="section-label reveal-up">// selected work</div>
+        <h2 class="section-title reveal-up">Systems I've<br /><span class="teal">Shipped.</span></h2>
+        <div class="projects-grid">
+
+          <!-- Project 1 -->
+          <article class="project-card glass tilt-card reveal-up" id="project-erp" style="--delay:0s" data-tilt>
+            <div class="project-card-inner">
+              <div class="project-glow"></div>
+              <div class="project-header">
+                <div class="project-num">01</div>
+                <div class="project-badges">
+                  <span class="project-badge badge-ongoing">Ongoing</span>
+                </div>
+              </div>
+              <div class="project-icon-wrap">
+                <div class="project-icon">
+                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+                    <rect x="6" y="38" width="36" height="4" rx="1" fill="none" stroke="#00f3ff" stroke-width="2" />
+                    <rect x="2" y="10" width="44" height="6" rx="1" fill="none" stroke="#00f3ff" stroke-width="2" />
+                    <rect x="10" y="16" width="4" height="22" fill="none" stroke="#00f3ff" stroke-width="2" />
+                    <rect x="22" y="16" width="4" height="22" fill="none" stroke="#00f3ff" stroke-width="2" />
+                    <rect x="34" y="16" width="4" height="22" fill="none" stroke="#00f3ff" stroke-width="2" />
+                    <path d="M24 2 L42 10 H6 Z" fill="none" stroke="#00f3ff" stroke-width="2" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+              <h3 class="project-title">MIET ERP Management System</h3>
+              <p class="project-desc">A centralized ERP platform for academic and administrative management at MIET
+                Engineering College — handling student records, attendance, timetables, and staff management in a
+                unified, role-based dashboard.</p>
+              <div class="project-stack">
+                <span class="stack-tag">React.js</span>
+                <span class="stack-tag">Node.js</span>
+                <span class="stack-tag">PostgreSQL</span>
+                <span class="stack-tag">REST API</span>
+              </div>
+              <div class="project-footer">
+                <div class="project-highlights">
+                  <div class="highlight"><span class="highlight-dot"></span>Multi-role access control</div>
+                  <div class="highlight"><span class="highlight-dot"></span>Real-time attendance tracking</div>
+                  <div class="highlight"><span class="highlight-dot"></span>Unified admin dashboard</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card glass tilt-card reveal-up" id="project-cargo" style="--delay:0.15s" data-tilt>
+            <div class="project-card-inner">
+              <div class="project-glow"></div>
+              <div class="project-header">
+                <div class="project-num">02</div>
+                <div class="project-badges">
+                  <span class="project-badge badge-live">Live Project</span>
+                </div>
+              </div>
+              <div class="project-icon-wrap">
+                <div class="project-icon">
+                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+                    <path d="M8 28 L4 38 H44 L40 28 Z" fill="none" stroke="#00f3ff" stroke-width="2"
+                      stroke-linejoin="round" />
+                    <path d="M16 28 V16 H32 V28" fill="none" stroke="#00f3ff" stroke-width="2" />
+                    <path d="M24 16 V6" stroke="#00f3ff" stroke-width="2" />
+                    <path d="M18 10 H30" stroke="#00f3ff" stroke-width="2" />
+                    <path d="M14 20 H34" stroke="#00f3ff" stroke-width="1.5" opacity="0.5" />
+                    <path d="M2 38 Q8 44 14 38 Q20 44 26 38 Q32 44 38 38 Q44 44 46 38" stroke="#00f3ff"
+                      stroke-width="1.5" fill="none" opacity="0.6" />
+                  </svg>
+                </div>
+              </div>
+              <h3 class="project-title">Courier & Cargo Management Platform</h3>
+              <p class="project-desc">A live cargo management platform designed and deployed for a Singapore-based
+                logistics company — featuring shipment tracking, order management, and real-time status updates across
+                the supply chain.</p>
+              <div class="project-stack">
+                <span class="stack-tag">React.js</span>
+                <span class="stack-tag">Node.js</span>
+                <span class="stack-tag">Real-Time</span>
+                <span class="stack-tag">Singapore</span>
+              </div>
+              <div class="project-footer">
+                <div class="project-highlights">
+                  <div class="highlight"><span class="highlight-dot"></span>Live shipment tracking</div>
+                  <div class="highlight"><span class="highlight-dot"></span>Order management system</div>
+                  <div class="highlight"><span class="highlight-dot"></span>Deployed for client in Singapore</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card glass tilt-card reveal-up featured-card" id="project-ai" style="--delay:0.3s"
+            data-tilt>
+            <div class="project-card-inner">
+              <div class="project-glow glow-gold"></div>
+              <div class="project-header">
+                <div class="project-num">03</div>
+                <div class="project-badges">
+                  <span class="project-badge badge-prize">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"
+                      style="display:inline;vertical-align:middle;margin-right:4px">
+                      <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                    First Prize
+                  </span>
+                </div>
+              </div>
+              <div class="project-icon-wrap">
+                <div class="project-icon">
+                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" width="44" height="44">
+                    <rect x="8" y="8" width="32" height="28" rx="4" fill="none" stroke="#a78bfa" stroke-width="2" />
+                    <circle cx="24" cy="18" r="5" fill="none" stroke="#a78bfa" stroke-width="2" />
+                    <path d="M14 36 Q14 28 24 28 Q34 28 34 36" fill="none" stroke="#a78bfa" stroke-width="2" />
+                    <path d="M2 18 L8 18" stroke="#a78bfa" stroke-width="2" />
+                    <path d="M40 18 L46 18" stroke="#a78bfa" stroke-width="2" />
+                    <path d="M4 12 L8 18 L4 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linejoin="round" />
+                    <path d="M44 12 L40 18 L44 24" fill="none" stroke="#a78bfa" stroke-width="2"
+                      stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+              <h3 class="project-title">AI Academic Chatbot</h3>
+              <p class="project-desc">An AI-powered academic assistant leveraging Retrieval-Augmented Generation (RAG)
+                to provide context-aware, accurate answers from academic documents — clinching First Prize at a national
+                AI Chatbot Hackathon.</p>
+              <div class="project-stack">
+                <span class="stack-tag">Python</span>
+                <span class="stack-tag">RAG</span>
+                <span class="stack-tag">LLM</span>
+                <span class="stack-tag">Vector DB</span>
+              </div>
+              <div class="project-footer">
+                <div class="project-highlights">
+                  <div class="highlight"><span class="highlight-dot gold-dot"></span>RAG architecture for accuracy</div>
+                  <div class="highlight"><span class="highlight-dot gold-dot"></span>Context-aware query handling</div>
+                  <div class="highlight"><span class="highlight-dot gold-dot"></span><strong>National Hackathon
+                      Winner</strong></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACHIEVEMENTS ── -->
+    <section id="achievements" aria-label="Achievements and certifications">
+      <div class="section-inner">
+        <div class="section-label reveal-up">// recognition</div>
+        <h2 class="section-title reveal-up">Awards &amp;<br /><span class="teal">Certifications.</span></h2>
+        <div class="achievements-grid">
+          <div class="achievement-card glass reveal-up" id="ach-1" style="--delay:0s">
+            <div class="ach-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="1.8">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            </div>
+            <div class="ach-content">
+              <div class="ach-title">First Prize — AI Chatbot Hackathon</div>
+              <div class="ach-desc">Won first place building an AI-powered academic chatbot using Python and RAG
+                architecture.</div>
+            </div>
+          </div>
+          <div class="achievement-card glass reveal-up" id="ach-2" style="--delay:0.1s">
+            <div class="ach-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f3ff" stroke-width="1.8">
+                <circle cx="12" cy="8" r="6" />
+                <path d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12" />
+              </svg>
+            </div>
+            <div class="ach-content">
+              <div class="ach-title">Best Outreach Award</div>
+              <div class="ach-desc">Recognized for exemplary outreach and community contribution at MIET Engineering
+                College.</div>
+            </div>
+          </div>
+          <div class="achievement-card glass reveal-up" id="ach-3" style="--delay:0.2s">
+            <div class="ach-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f3ff" stroke-width="1.8">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+            </div>
+            <div class="ach-content">
+              <div class="ach-title">Udemy — HTML &amp; CSS Complete Course</div>
+              <div class="ach-desc">Certified in modern web design fundamentals, laying the foundation for advanced
+                full-stack development.</div>
+            </div>
+          </div>
+          <div class="achievement-card glass reveal-up" id="ach-4" style="--delay:0.3s">
+            <div class="ach-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00f3ff" stroke-width="1.8">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            </div>
+            <div class="ach-content">
+              <div class="ach-title">Live International Deployment</div>
+              <div class="ach-desc">Designed and deployed a production cargo management platform for a Singapore-based
+                company as a student.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ── -->
+    <section id="contact" aria-label="Contact">
+      <div class="section-inner">
+        <div class="section-label reveal-up">// let's connect</div>
+        <h2 class="section-title reveal-up" style="text-align:center">Ready to Build<br /><span class="teal">Something
+            Real?</span></h2>
+        <p class="contact-sub reveal-up">I'm actively looking for internship and collaboration opportunities. Drop a
+          line — let's make something great together.</p>
+        <div class="contact-cards reveal-up">
+          <a href="mailto:haafizkassim786@gmail.com" class="contact-card glass magnetic" id="contact-email-card">
+            <div class="contact-card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
+              </svg>
+            </div>
+            <div class="contact-card-label">Email</div>
+            <div class="contact-card-value">haafizkassim786@gmail.com</div>
+          </a>
+          <a href="tel:+918610065701" class="contact-card glass magnetic" id="contact-phone-card">
+            <div class="contact-card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.63a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z" />
+              </svg>
+            </div>
+            <div class="contact-card-label">Phone</div>
+            <div class="contact-card-value">+91 8610065701</div>
+          </a>
+          <a href="https://www.linkedin.com/in/mohamed-kassim-m-570780340" target="_blank" rel="noopener"
+            class="contact-card glass magnetic" id="contact-linkedin-card">
+            <div class="contact-card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </div>
+            <div class="contact-card-label">LinkedIn</div>
+            <div class="contact-card-value">linkedin.com/in/mohamed-kassim-m-570780340</div>
+          </a>
+          <a href="https://github.com/Mohamedkassim786" target="_blank" rel="noopener"
+            class="contact-card glass magnetic" id="contact-github-card">
+            <div class="contact-card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+              </svg>
+            </div>
+            <div class="contact-card-label">GitHub</div>
+            <div class="contact-card-value">github.com/Mohamedkassim786</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer id="footer" aria-label="Footer">
+      <div class="footer-inner">
+        <div class="footer-logo">MK<span class="teal">.</span></div>
+        <p class="footer-tagline">Built with <svg class="footer-heart" width="14" height="14" viewBox="0 0 24 24"
+            fill="#00f3ff" xmlns="http://www.w3.org/2000/svg" style="display:inline;vertical-align:middle;margin:0 2px">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg> and a lot of <span class="teal">console.log()</span></p>
+        <p class="footer-copy">© 2026 Mohamed Kassim M — MIET Engineering College, Trichy</p>
+      </div>
+    </footer>
+
+  </div><!-- /main-site -->
+
+  <script src="script.js"></script>
+</body>
+
+</html>
