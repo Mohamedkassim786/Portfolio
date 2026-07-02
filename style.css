@@ -1066,7 +1066,17 @@ section {
 }
 
 .skill-icon {
-  font-size: 1rem;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.ach-icon svg {
+  display: block;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
