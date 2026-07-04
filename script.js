@@ -1,496 +1,342 @@
 /* ═══════════════════════════════════════════════════════════════════
-   MOHAMED KASSIM M — PORTFOLIO JAVASCRIPT
-   Loading · Particles · Cursor · Tilt · Counters · Reveals
+   MOHAMED KASSIM M — COCKPIT DASHBOARD ENGINE
    ═══════════════════════════════════════════════════════════════════ */
 
-'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+  initLoader();
+  initCockpitPhysics();
+  initTime();
+  initMagneticElements();
+});
 
-/* ─────────────────────────────────────────────────────────────────
-   1. LOADING SCREEN
-───────────────────────────────────────────────────────────────── */
-(function initLoader() {
-  const screen    = document.getElementById('loading-screen');
-  const fill      = document.getElementById('loader-fill');
-  const pctEl     = document.getElementById('loader-percent');
-  const statusEl  = document.getElementById('loader-status');
-  const mainSite  = document.getElementById('main-site');
+/* ── 1. IGNITION LOADER ── */
+function initLoader() {
+  const loader = document.getElementById('loader');
+  const mainSite = document.getElementById('main-site');
+  const progressCircle = document.getElementById('ign-progress');
+  const loaderPct = document.getElementById('loader-pct');
 
-  const statuses = [
-    'Initializing environment...',
-    'Compiling experience...',
-    'Loading systems...',
-    'Mounting components...',
-    'Establishing connections...',
-    'Rendering interface...',
-    'Almost ready...',
-    'Launching...'
-  ];
-
-  // Loading canvas particle burst
-  const lc  = document.getElementById('loading-particles');
-  const lctx = lc.getContext('2d');
-  lc.width  = window.innerWidth;
-  lc.height = window.innerHeight;
-
-  const loaderDots = Array.from({ length: 60 }, () => ({
-    x: Math.random() * lc.width,
-    y: Math.random() * lc.height,
-    r: Math.random() * 1.5 + 0.5,
-    vx: (Math.random() - 0.5) * 0.4,
-    vy: (Math.random() - 0.5) * 0.4,
-    a: Math.random() * 0.4 + 0.1
-  }));
-
-  function drawLoaderCanvas() {
-    lctx.clearRect(0, 0, lc.width, lc.height);
-    loaderDots.forEach(d => {
-      d.x += d.vx; d.y += d.vy;
-      if (d.x < 0 || d.x > lc.width)  d.vx *= -1;
-      if (d.y < 0 || d.y > lc.height) d.vy *= -1;
-      lctx.beginPath();
-      lctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      lctx.fillStyle = `rgba(0,243,255,${d.a})`;
-      lctx.fill();
-    });
-    loaderDots.forEach((d, i) => {
-      loaderDots.slice(i + 1).forEach(d2 => {
-        const dist = Math.hypot(d.x - d2.x, d.y - d2.y);
-        if (dist < 120) {
-          lctx.beginPath();
-          lctx.moveTo(d.x, d.y);
-          lctx.lineTo(d2.x, d2.y);
-          lctx.strokeStyle = `rgba(0,243,255,${0.06 * (1 - dist / 120)})`;
-          lctx.lineWidth = 0.5;
-          lctx.stroke();
-        }
-      });
-    });
-    if (!loaderDone) requestAnimationFrame(drawLoaderCanvas);
-  }
-  let loaderDone = false;
-  drawLoaderCanvas();
+  if (!loader) return;
 
   let pct = 0;
-  let statusIdx = 0;
+  const duration = 1500;
+  const interval = 30;
+  const step = 100 / (duration / interval);
 
-  function updateStatus() {
-    statusEl.textContent = statuses[statusIdx % statuses.length];
-    statusIdx++;
-  }
-
-  const interval = setInterval(() => {
-    const step = Math.random() * 3 + 1;
-    pct = Math.min(100, pct + step);
-    fill.style.width = pct + '%';
-    pctEl.firstChild.textContent = Math.floor(pct);
-    if (pct % 15 < step + 1) updateStatus();
+  const counter = setInterval(() => {
+    pct += step;
     if (pct >= 100) {
-      clearInterval(interval);
-      loaderDone = true;
-      statusEl.textContent = 'Ready.';
-      setTimeout(revealSite, 600);
+      pct = 100;
+      clearInterval(counter);
     }
-  }, 40);
+    if (loaderPct) loaderPct.innerText = Math.floor(pct) + '%';
+  }, interval);
 
-  function revealSite() {
-    screen.classList.add('fade-out');
-    mainSite.classList.remove('hidden');
+  // Simulate engine start (1.5s)
+  setTimeout(() => {
+    progressCircle.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+    progressCircle.style.strokeDashoffset = '0';
+  }, 50);
+
+  setTimeout(() => {
+    loader.style.opacity = '0';
     setTimeout(() => {
-      mainSite.style.display = '';
+      loader.style.display = 'none';
+      mainSite.classList.remove('hidden');
       mainSite.classList.add('visible');
-      screen.style.display = 'none';
-      initAll();
-    }, 900);
-  }
-})();
-
-/* ─────────────────────────────────────────────────────────────────
-   2. MAIN INIT — called after loader completes
-───────────────────────────────────────────────────────────────── */
-function initAll() {
-  initCustomCursor();
-  initParticleCanvas();
-  initNavbar();
-  initHeroTitle();
-  initScrollReveal();
-  initCounters();
-  initTilt();
-  initMagneticElements();
-  initNavBurger();
+      initScrollReveal();
+    }, 500);
+  }, 1600);
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   3. CUSTOM CURSOR
-───────────────────────────────────────────────────────────────── */
-function initCustomCursor() {
-  const dot  = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-
-  let mx = 0, my = 0;   // target
-  let rx = 0, ry = 0;   // ring current
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left  = mx + 'px';
-    dot.style.top   = my + 'px';
-  });
-
-  document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
-  document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
-
-  // Ring lags behind
-  function animRing() {
-    rx += (mx - rx) * 0.14;
-    ry += (my - ry) * 0.14;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
-  // Hover detection
-  const hoverTargets = 'a, button, .magnetic, .tilt-card, .skill-chip, .stat-card, .achievement-card';
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverTargets)) document.body.classList.add('cursor-hover');
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(hoverTargets)) document.body.classList.remove('cursor-hover');
-  });
-
-  // Hide on mobile
-  document.addEventListener('touchstart', () => {
-    dot.style.display  = 'none';
-    ring.style.display = 'none';
-  }, { once: true });
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   4. PARTICLE NETWORK CANVAS
-───────────────────────────────────────────────────────────────── */
-function initParticleCanvas() {
-  const canvas = document.getElementById('particle-canvas');
-  const ctx    = canvas.getContext('2d');
-  let W, H;
-  const mouse  = { x: -9999, y: -9999 };
-
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-  document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-
-  const COUNT      = 80;
-  const MAX_DIST   = 140;
-  const MOUSE_PUSH = 120;
-
-  class Particle {
-    constructor() { this.reset(); }
-    reset() {
-      this.x  = Math.random() * W;
-      this.y  = Math.random() * H;
-      this.vx = (Math.random() - 0.5) * 0.35;
-      this.vy = (Math.random() - 0.5) * 0.35;
-      this.r  = Math.random() * 1.8 + 0.6;
-      this.a  = Math.random() * 0.5 + 0.2;
-    }
-    update() {
-      // Mouse interaction
-      const dx = this.x - mouse.x;
-      const dy = this.y - mouse.y;
-      const d  = Math.hypot(dx, dy);
-      if (d < MOUSE_PUSH) {
-        const force = (MOUSE_PUSH - d) / MOUSE_PUSH * 0.8;
-        this.vx += (dx / d) * force * 0.6;
-        this.vy += (dy / d) * force * 0.6;
-      }
-      // Damping
-      this.vx *= 0.98;
-      this.vy *= 0.98;
-      this.x  += this.vx;
-      this.y  += this.vy;
-      // Wrap
-      if (this.x < -20)  this.x = W + 20;
-      if (this.x > W+20) this.x = -20;
-      if (this.y < -20)  this.y = H + 20;
-      if (this.y > H+20) this.y = -20;
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,243,255,${this.a})`;
-      ctx.shadowBlur = 6;
-      ctx.shadowColor = 'rgba(0,243,255,0.6)';
-      ctx.fill();
-      ctx.shadowBlur = 0;
-    }
-  }
-
-  const particles = Array.from({ length: COUNT }, () => new Particle());
-
-  function drawLines() {
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const a = particles[i], b = particles[j];
-        const d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < MAX_DIST) {
-          const alpha = (1 - d / MAX_DIST) * 0.25;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = `rgba(0,243,255,${alpha})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-      // Line to mouse
-      const dm = Math.hypot(particles[i].x - mouse.x, particles[i].y - mouse.y);
-      if (dm < MOUSE_PUSH * 1.5) {
-        const alphaM = (1 - dm / (MOUSE_PUSH * 1.5)) * 0.5;
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.strokeStyle = `rgba(0,243,255,${alphaM})`;
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      }
-    }
-  }
-
-  function loop() {
-    ctx.clearRect(0, 0, W, H);
-    particles.forEach(p => { p.update(); p.draw(); });
-    drawLines();
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   5. NAVBAR SCROLL EFFECT
-───────────────────────────────────────────────────────────────── */
-function initNavbar() {
-  const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  });
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   6. HERO KINETIC TITLE (letter-by-letter)
-───────────────────────────────────────────────────────────────── */
-function initHeroTitle() {
-  const title = document.getElementById('hero-title');
-  const words = [
-    { text: 'FULL-STACK', teal: false },
-    { text: 'DEVELOPER', teal: false },
-    { text: '&', teal: false },
-    { text: 'AI', teal: true },
-    { text: 'BUILDER.', teal: true },
-  ];
-
-  let charDelay = 0.3; // starts after badge is revealed
-
-  words.forEach((wordObj, wi) => {
-    const wordSpan = document.createElement('span');
-    wordSpan.className = 'word' + (wordObj.teal ? ' teal-word' : '');
-
-    // Handle & as entity
-    const chars = wordObj.text === '&' ? ['&'] : wordObj.text.split('');
-
-    chars.forEach(ch => {
-      const span = document.createElement('span');
-      span.className = 'char';
-      span.style.setProperty('--char-delay', charDelay + 's');
-      span.textContent = ch;
-      wordSpan.appendChild(span);
-      charDelay += 0.045;
-    });
-
-    title.appendChild(wordSpan);
-
-    // Space between words (not last)
-    if (wi < words.length - 1) {
-      const space = document.createElement('span');
-      space.className = 'word-space';
-      title.appendChild(space);
-    }
-  });
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   7. SCROLL REVEAL (Intersection Observer)
-───────────────────────────────────────────────────────────────── */
+/* ── 2. SCROLL REVEAL (Telemetry Reveal) ── */
 function initScrollReveal() {
-  const els = document.querySelectorAll('.reveal-up');
-  const observer = new IntersectionObserver(entries => {
+  const elements = document.querySelectorAll('.reveal-up');
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
+        // If it's the engine block, trigger cylinder firing
+        if (entry.target.classList.contains('engine-block')) {
+          fireCylinders();
+        }
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.1 });
 
-  els.forEach(el => observer.observe(el));
-
-  // Trigger hero elements immediately (they're in viewport)
-  setTimeout(() => {
-    document.querySelectorAll('#hero .reveal-up, #stats .reveal-up').forEach(el => {
-      observer.unobserve(el);
-      el.classList.add('revealed');
-    });
-  }, 100);
+  elements.forEach(el => observer.observe(el));
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   8. ANIMATED COUNTERS
-───────────────────────────────────────────────────────────────── */
-function initCounters() {
-  const counters = document.querySelectorAll('.counter');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      observer.unobserve(entry.target);
-      const el       = entry.target;
-      const target   = parseFloat(el.dataset.target);
-      const decimals = parseInt(el.dataset.decimals) || 0;
-      const start    = decimals === 0 ? 0 : 0;
-      const duration = 2000;
-      const startTime = performance.now();
+/* ── 3. COCKPIT PHYSICS (Scroll mapping to UI) ── */
+function initCockpitPhysics() {
+  const tachoBar = document.getElementById('hero-tacho-bar');
+  const tachoVal = document.getElementById('tacho-val');
+  const navbar = document.getElementById('navbar');
 
-      function tick(now) {
-        const elapsed  = Math.min(now - startTime, duration);
-        const progress = easeOutExpo(elapsed / duration);
-        const value    = start + (target - start) * progress;
-        el.textContent = value.toFixed(decimals);
-        if (elapsed < duration) requestAnimationFrame(tick);
-        else el.textContent = target.toFixed(decimals);
-      }
-      requestAnimationFrame(tick);
-    });
-  }, { threshold: 0.5 });
+  window.addEventListener('scroll', () => {
+    // Navbar background
+    if (window.scrollY > 50) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
 
-  counters.forEach(c => observer.observe(c));
-}
+    // Tachometer Mapping
+    // Max scroll distance
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    // Map scroll Y to 0-1
+    let scrollPct = window.scrollY / maxScroll;
+    scrollPct = Math.max(0, Math.min(1, scrollPct));
 
-function easeOutExpo(t) {
-  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-}
+    if (tachoBar && tachoVal) {
+      // Stroke dashoffset: 502 (empty) to 0 (full)
+      const maxOffset = 502;
+      const currentOffset = maxOffset - (scrollPct * maxOffset);
+      tachoBar.style.strokeDashoffset = currentOffset;
 
-/* ─────────────────────────────────────────────────────────────────
-   9. 3D TILT ON PROJECT CARDS
-───────────────────────────────────────────────────────────────── */
-function initTilt() {
-  const cards = document.querySelectorAll('[data-tilt]');
-
-  cards.forEach(card => {
-    const MAX_TILT = 12;
-
-    card.addEventListener('mousemove', e => {
-      const rect   = card.getBoundingClientRect();
-      const cx     = rect.left + rect.width  / 2;
-      const cy     = rect.top  + rect.height / 2;
-      const dx     = (e.clientX - cx) / (rect.width  / 2);
-      const dy     = (e.clientY - cy) / (rect.height / 2);
-      const rotX   = -dy * MAX_TILT;
-      const rotY   =  dx * MAX_TILT;
-      card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03, 1.03, 1.03)`;
-
-      // Glow follows cursor
-      const glowEl = card.querySelector('.project-glow');
-      if (glowEl) {
-        const px = ((e.clientX - rect.left) / rect.width)  * 100;
-        const py = ((e.clientY - rect.top)  / rect.height) * 100;
-        glowEl.style.background = `radial-gradient(circle at ${px}% ${py}%, rgba(0,243,255,0.18), transparent 65%)`;
-      }
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform   = '';
-      card.style.transition  = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-      const glowEl = card.querySelector('.project-glow');
-      if (glowEl) glowEl.style.background = '';
-      setTimeout(() => { card.style.transition = ''; }, 500);
-    });
-
-    card.addEventListener('mouseenter', () => {
-      card.style.transition = 'transform 0.1s ease';
-    });
+      // Update text value (0 to 10.0 RPM x1000)
+      const rpm = (scrollPct * 10).toFixed(1);
+      tachoVal.innerText = rpm;
+    }
   });
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   10. MAGNETIC ELEMENTS
-───────────────────────────────────────────────────────────────── */
+/* ── 4. V8 ENGINE CYLINDERS ── */
+function fireCylinders() {
+  const cylinders = document.querySelectorAll('.cylinder');
+
+  cylinders.forEach((cyl, index) => {
+    const level = cyl.getAttribute('data-level');
+    const pistonHead = cyl.querySelector('.piston-head');
+    const glow = cyl.querySelector('.cyl-glow');
+
+    // Stagger the firing sequence like a real V8 engine (1-8-4-3-6-5-7-2)
+    // For simplicity, just staggering by index
+    setTimeout(() => {
+      if (pistonHead) pistonHead.style.width = `${level}%`;
+      // We can also add a flash effect to cyl-glow if desired
+    }, index * 150);
+  });
+}
+
+/* ── 5. INFOTAINMENT CLOCK ── */
+function initTime() {
+  const timeEl = document.getElementById('console-time');
+  if (!timeEl) return;
+
+  function updateTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12 || 12;
+    const mins = now.getMinutes().toString().padStart(2, '0');
+    timeEl.innerText = `${hours}:${mins} ${ampm}`;
+  }
+
+  updateTime();
+  setInterval(updateTime, 60000);
+}
+
+/* ── 6. MAGNETIC ELEMENTS ── */
 function initMagneticElements() {
   const magnetics = document.querySelectorAll('.magnetic');
 
-  magnetics.forEach(el => {
-    const STRENGTH = 0.3;
+  magnetics.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
 
-    el.addEventListener('mousemove', e => {
-      const rect = el.getBoundingClientRect();
-      const cx   = rect.left + rect.width  / 2;
-      const cy   = rect.top  + rect.height / 2;
-      const dx   = (e.clientX - cx) * STRENGTH;
-      const dy   = (e.clientY - cy) * STRENGTH;
-      el.style.transform = `translate(${dx}px, ${dy}px)`;
-      el.style.transition = 'transform 0.1s ease';
+      btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
     });
 
-    el.addEventListener('mouseleave', () => {
-      el.style.transform = '';
-      el.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0px, 0px)';
     });
   });
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   11. MOBILE NAV BURGER
-───────────────────────────────────────────────────────────────── */
-function initNavBurger() {
-  const burger = document.getElementById('nav-burger');
-  const mobileNav = document.getElementById('nav-mobile');
-  if (!burger) return;
-
-  burger.addEventListener('click', () => {
-    mobileNav.classList.toggle('open');
-    const spans = burger.querySelectorAll('span');
-    const isOpen = mobileNav.classList.contains('open');
-    if (isOpen) {
-      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-      spans[1].style.opacity = '0';
-      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-    } else {
-      spans[0].style.transform = '';
-      spans[1].style.opacity = '';
-      spans[2].style.transform = '';
-    }
-  });
-
-  document.querySelectorAll('.nav-mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileNav.classList.remove('open');
-      const spans = burger.querySelectorAll('span');
-      spans[0].style.transform = '';
-      spans[1].style.opacity   = '';
-      spans[2].style.transform = '';
-    });
-  });
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   12. SMOOTH SCROLL for anchor links
-───────────────────────────────────────────────────────────────── */
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const id = a.getAttribute('href').slice(1);
-    const el = document.getElementById(id);
-    if (el) {
-      e.preventDefault();
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+/* ── 7. SMOOTH SCROLL ANCHORS ── */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    const targetEl = document.querySelector(targetId);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth' });
     }
   });
 });
+
+/* ── 8. CUSTOM CROSSHAIR CURSOR ── */
+const cursor = document.createElement('div');
+cursor.classList.add('custom-cursor');
+document.body.appendChild(cursor);
+
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+
+document.querySelectorAll('a, button, .magnetic').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+});
+
+/* ── 9. SPEED BLUR & PARALLAX ON SCROLL ── */
+let lastScrollY = window.scrollY;
+let scrollTimeout;
+const carbonBg = document.getElementById('carbon-bg');
+
+window.addEventListener('scroll', () => {
+  // Speed Blur
+  const currentScrollY = window.scrollY;
+  const speed = Math.abs(currentScrollY - lastScrollY);
+  const blurAmount = Math.min(speed * 0.05, 5); // Cap blur at 5px
+
+  const mainSite = document.getElementById('main-site');
+  if (mainSite) {
+    mainSite.style.setProperty('--scroll-blur', `${blurAmount}px`);
+  }
+
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    if (mainSite) mainSite.style.setProperty('--scroll-blur', `0px`);
+  }, 100);
+
+  // Parallax Background
+  if (carbonBg) {
+    carbonBg.style.transform = `translateY(${currentScrollY * 0.2}px)`;
+  }
+
+  // F1 Car Timeline Animation
+  const trackPath = document.getElementById('race-track');
+  const f1Car = document.getElementById('f1-car');
+  const timelineSec = document.getElementById('timeline');
+
+  if (trackPath && f1Car && timelineSec) {
+    const rect = timelineSec.getBoundingClientRect();
+    const secHeight = timelineSec.offsetHeight;
+    const windowHeight = window.innerHeight;
+
+    // Start animating when the section top is at 60% of the viewport height
+    // This gives the user time to see the section title before the car takes off
+    const startTrigger = windowHeight * 0.6;
+    let progress = (startTrigger - rect.top) / secHeight;
+    progress = Math.max(0, Math.min(1, progress));
+
+    // Get point on SVG path
+    const pathLength = trackPath.getTotalLength();
+    const pt = trackPath.getPointAtLength(progress * pathLength);
+
+    // Calculate angle for rotation (steer the car)
+    const lookahead = Math.min(pathLength, progress * pathLength + 5);
+    const ptNext = trackPath.getPointAtLength(lookahead);
+    const dx = ptNext.x - pt.x;
+    const dy = ptNext.y - pt.y;
+    // Tweak the +90 depending on image's default orientation
+    let angle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+    // The SVG viewBox is 800x800, container is 100% width
+    const svgEl = trackPath.closest('svg');
+    const svgRect = svgEl ? svgEl.getBoundingClientRect() : null;
+    const scaleX = svgRect ? svgRect.width / 800 : 1;
+    const scaleY = svgRect ? svgRect.height / 800 : 1;
+
+    const screenX = pt.x * scaleX; 
+    const screenY = pt.y * scaleY;
+
+    // Use translate -50% -50% inside the transform to flawlessly center the image regardless of its height/width
+    // Reverted back to angle + 90 for cars that point UP by default
+    f1Car.style.transform = `translate(calc(${screenX}px - 50%), calc(${screenY}px - 50%)) rotate(${angle + 90}deg)`;
+  }
+
+  lastScrollY = currentScrollY;
+});
+
+/* ── 10. SOFT SKILLS RADAR CHART ANIMATION ── */
+function animateRadarChart() {
+  const radarContainer = document.querySelector('.radar-container.revealed');
+  if (!radarContainer || radarContainer.classList.contains('animated')) return;
+
+  const poly = radarContainer.querySelector('#radar-poly');
+  const counters = radarContainer.querySelectorAll('.counter');
+
+  if (poly) {
+    const targetPoints = poly.getAttribute('data-target');
+    poly.setAttribute('points', targetPoints);
+  }
+
+  counters.forEach(counter => {
+    const targetNum = parseInt(counter.getAttribute('data-target'));
+    let current = 0;
+    const step = Math.max(1, Math.floor(targetNum / 40));
+    const interval = setInterval(() => {
+      current += step;
+      if (current >= targetNum) {
+        current = targetNum;
+        clearInterval(interval);
+      }
+      counter.innerText = current + '%';
+    }, 30);
+  });
+
+  radarContainer.classList.add('animated');
+}
+
+// Hook into existing ScrollReveal observer
+const originalScrollReveal = initScrollReveal;
+initScrollReveal = function () {
+  originalScrollReveal();
+
+  const radarObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateRadarChart();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const radarEl = document.querySelector('.radar-container');
+  if (radarEl) radarObserver.observe(radarEl);
+};
+
+/* ── MOBILE MENU TOGGLE ── */
+const navBurger = document.getElementById('nav-burger');
+const navLinks = document.querySelector('.nav-links');
+
+if (navBurger && navLinks) {
+  navBurger.addEventListener('click', () => {
+    navLinks.classList.toggle('nav-active');
+  });
+
+  // Close menu on link click
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('nav-active');
+    });
+  });
+}
+
+/* ── 3D HELMET ROTATION ── */
+const aboutSection = document.getElementById('about');
+const helmetWrapper = document.querySelector('.helmet-3d-wrapper');
+
+if (aboutSection && helmetWrapper) {
+  aboutSection.addEventListener('mousemove', (e) => {
+    const rect = aboutSection.getBoundingClientRect();
+    const x = e.clientX - rect.left; // x position within the element
+    const y = e.clientY - rect.top;  // y position within the element
+
+    // Calculate rotation (-30deg to 30deg)
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -30;
+    const rotateY = ((x - centerX) / centerX) * 30;
+
+    helmetWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  aboutSection.addEventListener('mouseleave', () => {
+    helmetWrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  });
+}
