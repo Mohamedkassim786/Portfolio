@@ -241,7 +241,7 @@ window.addEventListener('scroll', () => {
     const scaleX = svgRect ? svgRect.width / 800 : 1;
     const scaleY = svgRect ? svgRect.height / 800 : 1;
 
-    const screenX = pt.x * scaleX; 
+    const screenX = pt.x * scaleX;
     const screenY = pt.y * scaleY;
 
     // Use translate -50% -50% inside the transform to flawlessly center the image regardless of its height/width
@@ -329,7 +329,7 @@ if (aboutSection && helmetWrapper) {
     // Calculate rotation (-30deg to 30deg)
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    
+
     const rotateX = ((y - centerY) / centerY) * -30;
     const rotateY = ((x - centerX) / centerX) * 30;
 
